@@ -1,15 +1,28 @@
 package com.hema.logistics.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hema.ProjectService;
 import com.hema.logistics.model.Logistics;
 
 @Controller
 public class LogisticsController {
+	
+	@Autowired 
+	ProjectService ps;
+	
+	@RequestMapping(value="/findAll")
+	public ModelAndView displayAllLogisticsDetails(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("alllogistics");
+		mv.addObject("listlogistics",ps.getLogisticCollection());
+		return mv;
+	}
 	
 	@RequestMapping(value="/show")
 	@ResponseBody
