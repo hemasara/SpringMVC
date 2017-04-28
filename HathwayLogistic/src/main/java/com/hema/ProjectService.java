@@ -3,12 +3,44 @@ package com.hema;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hema.logistics.dao.ProjectDAO;
+import com.hema.logistics.entities.ProjectEntity;
 import com.hema.logistics.model.Logistics;
+import com.hema.logistics.model.Project;
 
 @Service
 public class ProjectService {
+	
+	@Autowired
+	ProjectDAO pdao;
+	
+	public boolean saveProject(Project project){
+		ProjectEntity pe = new ProjectEntity();
+			pe.setProjectId(project.getProjectId());
+			pe.setProjectName(project.getProjectName());
+			pe.setProjectOwner(project.getProjectOwner());
+			pe.setProjectDuration(project.getProjectDuration());
+			pe.setProjectCost(project.getProjectCost());
+			
+		pdao.saveProject(pe);
+		
+		return true;
+	}
+	
+	public boolean deleteProject (int projectId){
+		return true;
+	}
+	
+	public Project getProject(){
+		return null;
+	}
+	
+	public List<Project> getAllProjects(){
+		return null;
+	}
 
 	
 	List<Logistics> logisticCollection = new ArrayList<Logistics>();

@@ -1,14 +1,19 @@
 package com.hema.logistics.controllers;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hema.ProjectService;
 import com.hema.logistics.model.Logistics;
+import com.hema.logistics.model.Project;
 
 @Controller
 public class LogisticsController {
@@ -81,4 +86,25 @@ public class LogisticsController {
 				
 		return mv;
 	}
+	
+	@RequestMapping(value="/open", method=RequestMethod.GET)
+	public String addProject(){
+		return  "addProject";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
+	public ModelAndView saveProject(){
+		ModelAndView mv = new ModelAndView("addSpringProject", "project", new Project(1,"h","m",new BigDecimal(12),2));
+		return  mv;
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String submitProject(@ModelAttribute Project project){
+		boolean b = ps.saveProject(project);
+		System.out.println(project.toString());
+		return  "addSpringProject";
+	}
+	
+
+	
 }
